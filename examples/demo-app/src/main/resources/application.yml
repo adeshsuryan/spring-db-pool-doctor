@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/appdb
+    username: appuser
+    password: ${DB_PASSWORD}
+    hikari:
+      pool-name: demo-pool
+      maximum-pool-size: 10
+      connection-timeout: 30000
+  db-pool-doctor:
+    enabled: true
+    scan-interval-ms: 10000
+    active-percent-warning: 80
+    active-percent-critical: 95
+    log-healthy-snapshots: false
