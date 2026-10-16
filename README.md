@@ -39,9 +39,9 @@ Verified in CI-style Docker builds (all unit + integration tests against real Po
 
 | JDK | Spring Boot | Result |
 | --- | --- | --- |
-| 17 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.7 | PASS |
-| 21 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.7 | PASS |
-| 25 | 3.5.7 | PASS |
+| 17 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.16 | PASS |
+| 21 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.16 | PASS |
+| 25 | 3.5.16 | PASS |
 | 25 | 3.2.x–3.4.x | Not supported upstream (Boot < 3.5 doesn't support Java 25) |
 
 ## Install
