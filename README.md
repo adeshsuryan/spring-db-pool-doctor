@@ -5,7 +5,7 @@
 A HikariCP-first Spring Boot starter that samples connection-pool statistics and emits diagnostic findings for saturation, high utilization, and threads waiting for connections — with evidence and next-check guidance rather than raw metrics.
 
 ## Status
-Early development (0.1.0-SNAPSHOT). Sampling mode, instrumented acquisition/hold timing, JSON report, optional Actuator endpoint and multi-pool support are implemented. See [CHANGELOG](CHANGELOG.md).
+Stable release **0.1.0** — sampling mode, instrumented acquisition/hold timing, JSON report, optional Actuator endpoint and multi-pool support. See [CHANGELOG](CHANGELOG.md).
 
 ## Configuration
 ```yaml
@@ -50,7 +50,7 @@ Verified in CI-style Docker builds (all unit + integration tests against real Po
 <dependency>
   <groupId>io.github.adeshsuryan</groupId>
   <artifactId>spring-db-pool-doctor-spring-boot-starter</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 

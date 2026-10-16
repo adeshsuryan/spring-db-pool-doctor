@@ -2,9 +2,13 @@
 
 All notable changes to spring-db-pool-doctor are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/); versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.1.0] — 2026-10-16
 
-### Added — Phase 4 (v0.1.0-alpha.4)
+First stable release. All prior alpha-phase features included; audit-hardened
+(`-Paudit`: unit + integration tests, SpotBugs, OWASP dependency-check,
+CycloneDX SBOM all green). Default baseline Spring Boot 3.5.16.
+
+### Added — Phase 4 / audit (v0.1.0-alpha.4, v0.1.0-alpha.5)
 
 - Integration test suite (`PoolSaturationIT`) against real PostgreSQL 16: saturation, threads-waiting, recovery and post-exhaustion health scenarios.
 - Runnable `examples/demo-app` with docker-compose PostgreSQL fixture.
