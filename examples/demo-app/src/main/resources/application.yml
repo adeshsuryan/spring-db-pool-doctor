@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/appdb
     username: appuser
-    password: ${DB_PASSWORD}
+    password: ${DB_PASSWORD:appsecret}
     hikari:
       pool-name: demo-pool
       maximum-pool-size: 10
@@ -12,4 +12,15 @@ spring:
     scan-interval-ms: 10000
     active-percent-warning: 80
     active-percent-critical: 95
+    consecutive-samples: 3
     log-healthy-snapshots: false
+    instrumented: false
+    actuator:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,dbPoolDoctor
+server:
+  port: 8080

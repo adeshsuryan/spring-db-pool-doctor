@@ -4,6 +4,18 @@ All notable changes to spring-db-pool-doctor are documented here. Format follows
 
 ## [Unreleased]
 
+### Added — Phase 4 (v0.1.0-alpha.4)
+
+- Integration test suite (`PoolSaturationIT`) against real PostgreSQL 16: saturation, threads-waiting, recovery and post-exhaustion health scenarios.
+- Runnable `examples/demo-app` with docker-compose PostgreSQL fixture.
+- JDK × Spring Boot compatibility matrix under `test-java-project/matrix-pool-doctor` (Docker builds, 17/21/25 × Boot 3.2–3.5).
+- GitHub Actions CI workflow; OWASP dependency-check and SpotBugs audit profile (`-Paudit`) with reviewed exclude filter.
+- Project banner (`docs/assets/banner.svg`) and verified-compatibility table in README.
+
+### Fixed
+
+- SpotBugs `EI_EXPOSE_REP`/`EI_EXPOSE_REP2`: defensive copies in `InstrumentedSnapshot`, `PoolDoctorReport`/`PoolEntry` constructors and `BorrowRecord.borrowStack()`; documented exclusions for intentionally shared collaborators.
+
 ### Added — Phase 3 (v0.1.0-alpha.3)
 
 - `PoolMonitorService` scanning **all** `DataSource` beans (multi-pool), resolving each to its `HikariPoolMXBean` — including wrapped/`InstrumentedDataSource` beans.

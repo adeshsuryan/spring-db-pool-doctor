@@ -9,11 +9,13 @@ public final class BorrowRecord {
     BorrowRecord(long borrowNanos, long borrowWallClockMs, StackTraceElement[] borrowStack) {
         this.borrowNanos = borrowNanos;
         this.borrowWallClockMs = borrowWallClockMs;
-        this.borrowStack = borrowStack;
+        this.borrowStack = borrowStack == null ? null : borrowStack.clone();
     }
 
     public long borrowNanos() { return borrowNanos; }
     public long borrowWallClockMs() { return borrowWallClockMs; }
-    public StackTraceElement[] borrowStack() { return borrowStack; }
+    public StackTraceElement[] borrowStack() {
+        return borrowStack == null ? null : borrowStack.clone();
+    }
     public long ageMs(long nowNanos) { return (nowNanos - borrowNanos) / 1_000_000L; }
 }

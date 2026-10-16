@@ -1,3 +1,5 @@
+![Spring DB Pool Doctor](docs/assets/banner.svg)
+
 # Spring DB Pool Doctor
 
 A HikariCP-first Spring Boot starter that samples connection-pool statistics and emits diagnostic findings for saturation, high utilization, and threads waiting for connections — with evidence and next-check guidance rather than raw metrics.
@@ -33,6 +35,15 @@ The monitor runs on its own daemon scheduler — it does **not** enable or depen
 - Spring Boot 3.2+
 - HikariCP
 
+Verified in CI-style Docker builds (all unit + integration tests against real PostgreSQL):
+
+| JDK | Spring Boot | Result |
+| --- | --- | --- |
+| 17 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.7 | PASS |
+| 21 | 3.2.12 / 3.3.13 / 3.4.10 / 3.5.7 | PASS |
+| 25 | 3.5.7 | PASS |
+| 25 | 3.2.x–3.4.x | Not supported upstream (Boot < 3.5 doesn't support Java 25) |
+
 ## Install
 
 ```xml
@@ -42,19 +53,6 @@ The monitor runs on its own daemon scheduler — it does **not** enable or depen
   <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
-
-## Configuration
-```yaml
-spring:
-  db-pool-doctor:
-    enabled: true                 # default true
-    scan-interval-ms: 10000       # sampling interval
-    active-percent-warning: 80    # utilization warning threshold
-    active-percent-critical: 95   # utilization critical threshold
-    log-healthy-snapshots: false  # emit POOL_HEALTHY info findings
-```
-
-The monitor runs on its own daemon scheduler — it does **not** enable or depend on Spring scheduling in your application.
 
 ## Findings
 
@@ -85,8 +83,8 @@ The monitor runs on its own daemon scheduler — it does **not** enable or depen
 2. ~~Time-window rules, deduplication, recovery notices~~ — done.
 3. ~~JSON report + optional Actuator endpoint~~ — done.
 4. ~~Multi-pool support~~ — done.
-5. Testcontainers integration suite and overhead benchmarks.
-6. Tomcat JDBC / Commons DBCP2 adapters.
+5. ~~Integration suite against real PostgreSQL + JDK/Spring Boot matrix~~ — done (external fixture; Testcontainers incompatible with Docker Desktop's socket proxy).
+6. Overhead benchmarks; Tomcat JDBC / Commons DBCP2 adapters.
 7. Maven Central release of 0.1.0.
 
 ## License

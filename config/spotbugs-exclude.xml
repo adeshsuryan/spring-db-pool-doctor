@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter xmlns="https://github.com/spotbugs/filter/3.0.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+  <!-- Intentionally shared collaborators: Spring beans, config properties and
+       delegates are meant to be mutable and shared. Accessors returning them
+       are not leaks. -->
+  <Match>
+    <Class name="io.github.springdbpooldoctor.autoconfigure.SpringDbPoolDoctorProperties"/>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.core.PoolAnalyzer"/>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.core.PoolMonitorService"/>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.instrumented.InstrumentedDataSource"/>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.actuator.DbPoolDoctorEndpoint"/>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+  <!-- Records defensively copy at construction (List.copyOf); accessors return
+       already-immutable lists. -->
+  <Match>
+    <Class name="io.github.springdbpooldoctor.core.InstrumentedSnapshot"/>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.report.PoolDoctorReport"/>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+  <Match>
+    <Class name="io.github.springdbpooldoctor.report.PoolDoctorReport$PoolEntry"/>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+</FindBugsFilter>

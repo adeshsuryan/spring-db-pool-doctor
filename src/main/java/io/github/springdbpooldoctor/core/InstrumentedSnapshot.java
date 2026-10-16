@@ -11,4 +11,8 @@ public record InstrumentedSnapshot(
         long acquisitionSuccessCount, long acquisitionFailureCount,
         long openBorrowCount, int borrowsOverLeakThreshold,
         List<BorrowRecord> oldestOverThreshold) {
+
+    public InstrumentedSnapshot {
+        oldestOverThreshold = List.copyOf(oldestOverThreshold);
+    }
 }
