@@ -14,7 +14,7 @@ jobs:
         jdk: [17, 21]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: ${{ matrix.jdk }}
@@ -36,7 +36,7 @@ jobs:
           --health-interval 5s --health-timeout 3s --health-retries 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -65,7 +65,7 @@ jobs:
         spring-boot: ["3.2.12", "3.3.13", "3.4.10", "3.5.16"]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -90,10 +90,20 @@ jobs:
           path: ~/.m2/repository/org/owasp/dependency-check-data
           key: nvd-db-${{ runner.os }}-${{ github.run_id }}
           restore-keys: nvd-db-${{ runner.os }}-
-      - run: mvn -B verify -DskipITs -Paudit
+      # The NVD feed is rate-limited/throttled without an API key (HTTP 524
+      # cold-sync failures observed). dependency-check resumes the partial
+      # download, so a few retries usually finish it. Add an NVD_API_KEY
+      # repository secret (free at nvd.nist.gov) to make this reliable.
+      - name: Audit (with NVD retry)
+        run: |
+          for attempt in 1 2 3; do
+            echo "audit attempt $attempt"
+            mvn -B verify -DskipITs -Paudit && exit 0
+            echo "attempt $attempt failed; retrying after 60s"
+            sleep 60
+          done
+          exit 1
         env:
-          # Optional: add a repository secret NVD_API_KEY (nvd.nist.gov key)
-          # for faster, unthrottled NVD syncs. The audit works without it.
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
