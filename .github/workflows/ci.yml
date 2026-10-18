@@ -85,7 +85,16 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: maven
+      - uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: nvd-db-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: nvd-db-${{ runner.os }}-
       - run: mvn -B verify -DskipITs -Paudit
+        env:
+          # Optional: add a repository secret NVD_API_KEY (nvd.nist.gov key)
+          # for faster, unthrottled NVD syncs. The audit works without it.
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
           name: sbom
